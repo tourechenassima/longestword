@@ -173,26 +173,40 @@
           <?php
           include('functions.php');
           $dl = drawnLetters();
-          for ($i=0; $i <= 4; $i++) {?>
+          for ($i=0; $i <= 3; $i++) {?>
           
              <div class="divaya" style="display:none ; width: 60px; height: 60px; padding: 3px; background-color: lightblue; font-size: 64px; font-weight:bold; text-align:center; "> <?php echo($dl[$i])?> </div> 
-
           <?php
           }
-          
           ?>
          <?php 
-         for ($i=10; $i > 1 ; $i--) { 
-          ******************************هنا
-            if (empty(comb($dl,$i))){?>
-               <h1> <?php   echo(comb($dl,$i));  ?></h1>
-               <?php    $i =1 ;  ?>
-               
-        <?php  };
-
+       
+         for ($i=3; $i > 1 ; $i--) {
+                echo(nbrcomb($dl,$i));
+              
+              //$allcomb =
+              //$sugg = permute( $dl , 0 , count($dl) - 1 ,$i) <> '';
+              if (permute( $dl , 0 , count($dl) - 1 ,$i) <> ''){
+                  echo (permute( $dl , 0 , count($dl) - 1 ,$i). "    is the longest word");
+               }else{
+                       if ($i = 1) {
+                         echo('There is not longest word');
+              //                $i = 1;
+                       }else{
+                         echo (permute( $dl , 0 , count($dl) - 1 ,$i). "    is the longest word");
+                          $i = 1;
+                       }
+                      
+                }                 
+                   
          }
-          
-         ?>          
+
+  
+
+
+
+
+           ?>          
 
           <a id = 'buttonShow' onclick="show()"> THE RANDOMLY DRAWN LETTERS</a>
          
