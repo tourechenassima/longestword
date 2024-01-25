@@ -8,7 +8,7 @@ for ($i=0; $i <= 3; $i++) {
 
  }
      return ($drawn_letters);
-
+    
 }
     
 
@@ -28,27 +28,56 @@ function permute($array, $left, $right, $r) {
     if ($left == $r) {
       //  echo implode(", ", array_slice($array, 0, $r)) . PHP_EOL;
       $slice = array_slice($array, 0, $r);
-       if ($r === 3) {
-         $x =$slice[0].$slice[1].$slice[2] ;
-         ?> <p style="font-weight:bold; text-size: 36px; padding:2px; margin: 3px;"> <?php echo($x);?> </p><?php 
+      if ($r === 10) {
+        $x =$slice[0].$slice[1].$slice[2].$slice[3].$slice[4].$slice[5].$slice[6].$slice[7].$slice[8].$slice[9] ;
+      } else {
+        if ($r === 9) {
+            $x =$slice[0].$slice[1].$slice[2].$slice[3].$slice[4].$slice[5].$slice[6].$slice[7].$slice[8];
+        }else {
+        if ($r === 8) {
+            $x =$slice[0].$slice[1].$slice[2].$slice[3].$slice[4].$slice[5].$slice[6].$slice[7];
 
-       }else {
-         $x =$slice[0].$slice[1];
-         ?> <p style="font-weight:bold; text-size: 36px; padding:2px; margin: 3px;"> <?php echo($x);?> </p><?php 
+        } else {
+            if ($r === 7) {
+                $x =$slice[0].$slice[1].$slice[2].$slice[3].$slice[4].$slice[5].$slice[6];
 
+            } else {
+                if ($r === 6) {
+                    $x =$slice[0].$slice[1].$slice[2].$slice[3].$slice[4].$slice[5];
+                } else {
+                    if ($r === 5) {
+                        $x =$slice[0].$slice[1].$slice[2].$slice[3].$slice[4];
+                    } else {
+                        if ($r === 4) {
+                            $x =$slice[0].$slice[1].$slice[2].$slice[3];
+                        } else {
+                            if ($r === 3) {
+                                $x =$slice[0].$slice[1].$slice[2];
+                            } else {
+                                if ($r === 2) {
+                                    $x =$slice[0].$slice[1];
+                                } else {
+                                    echo('else...');
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+
+         
        }
-     if (chercher($x) <>'') {
-        return(chercher($x));
-     }
+      }
+      
+       
+     //if (chercher($x) <>'') {
+        return(chercher($x,$r));
+    // }
   
     ?>
-     <!-- <table>
-         <tr>
-            <td> <?php //echo($slice[0]); ?> </td>
-            <td> <?php //echo($slice[1]); ?> </td>
-            <td> <?php //echo($slice[2]); ?> </td>
-         </tr>
-     </table>  -->
+     
      <?php
     } else {
         for ($i = $left; $i <= $right; $i++) {
@@ -60,7 +89,9 @@ function permute($array, $left, $right, $r) {
             
              if (permute($array, $left + 1, $right, $r) <>'') {
                  return (permute($array, $left + 1, $right, $r));
-            //    // echo (. "    is the longest word");
+                
+                 //echo (permute($array, $left + 1, $right, $r)."  is the longest word");
+
              }else{
                  permute($array, $left + 1, $right, $r);
              }
@@ -73,9 +104,8 @@ function permute($array, $left, $right, $r) {
     }
 }
 
-
-function chercher($xi){
-    $dictionaryFilePath = 'Dictionary in csv\A.txt';
+function chercher($xi,$n){
+    $dictionaryFilePath = 'Dictionary in txt\A.txt';
 
     $fileContent = file_get_contents($dictionaryFilePath);
 
@@ -87,7 +117,7 @@ function chercher($xi){
 
     $dictionary = loadDictionary($dictionaryFilePath);
 
-    $n = 3; // Change this to your desired word length
+    //   $n = 3; // Change this to your desired word length
     $nLetterDictionary = createNLetterDictionary($dictionary, $n);
 
     $searchWord = $xi; // Change this to the word you want to search
@@ -95,10 +125,10 @@ function chercher($xi){
     $isWordFound = searchWord($searchWord, $nLetterDictionary);
 
     if ($isWordFound) {
-        echo "$searchWord found in the $n-letter dictionary.";
+       // echo "$searchWord found in the $n-letter dictionary.";
         return ($xi);
     } else {
-        echo "$searchWord not found in the $n-letter dictionary.";
+       // echo "$searchWord not found in the $n-letter dictionary.";
         return ('');
     }
     
@@ -129,10 +159,6 @@ function nbrcomb($letters,$r){
 //permute($letters, 0, count($letters) - 1, $r);
 }
 
-
-
-
-
 function loadDictionary($filePath) {
     $dictionary = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     return $dictionary;
@@ -143,10 +169,6 @@ function loadDictionary($filePath) {
  function searchWord($word, $dictionary) {
      return in_array($word, $dictionary);
  }
-
-
-
-
 
 function createNLetterDictionary($dictionary, $n) {
     $nLetterWords = array_filter($dictionary, function($word) use ($n) {

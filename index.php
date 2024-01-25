@@ -14,20 +14,35 @@
       html, body {
       min-height: 100%;
       }
-      body, div, form, input, textarea, p { 
+      body, div, form, textarea, p { 
       padding: 0;
       margin: 0;
       outline: none;
       font-family: Roboto, Arial, sans-serif;
       font-size: 14px;
-      color: #666;
+      color: #000;
+      line-height: 22px;
+      }
+      input{
+        padding: 0;
+      margin-top: 3px;
+      margin-bottom: 3px;
+      margin-right: 30px;
+      margin-left: 30px;
+
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 32px;
+     
+      color: #000;
       line-height: 22px;
       }
       h1 {
       position: absolute;
       margin: 0;
-      font-size: 32px;
-      color: #fff;
+      font-size: 64px;
+      color: blue;
+      
       z-index: 2;
       }
       .testbox {
@@ -40,9 +55,10 @@
       form {
       width: 100%;
       padding: 20px;
+      margin: 20px;
       border-radius: 6px;
       background: #fff;
-      box-shadow: 0 0 10px 0 #cc0052; 
+      box-shadow: 0 0 10px 0 blue; 
       }
       .banner {
       position: relative;
@@ -52,10 +68,11 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      margin-bottom: 40px;
       }
       .banner::after {
       content: "";
-      background-color: rgba(0, 0, 0, 0.4); 
+      //background-color: rgba(0, 0, 0, 0.4); 
       position: absolute;
       width: 100%;
       height: 100%;
@@ -66,11 +83,11 @@
       border-radius: 3px;
       }
       input {
-      width: calc(100% - 10px);
+      width: calc(100% - 600px);
       padding: 5px;
       }
       textarea {
-      width: calc(100% - 12px);
+      width: calc(100% - 600px);
       padding: 5px;
       }
       .item:hover p, input:hover::placeholder {
@@ -78,7 +95,7 @@
       }
       .item input:hover, .item textarea:hover {
       border: 1px solid transparent;
-      box-shadow: 0 0 6px 0 #cc0052;
+      box-shadow: 0 0 6px 0 blue;
       color: #cc0052;
       }
       .item {
@@ -86,7 +103,7 @@
       margin: 10px 0;
       }
       .btn-block {
-      margin-top: 10px;
+      margin: 20px;
       text-align: center;
       }
       button {
@@ -130,6 +147,8 @@
       }
       label{
         padding: 3px;
+        font-size: 32px;
+
       }
       ul{
         list-style: none;
@@ -142,13 +161,14 @@
 <!-- ******************************************************** -->
 
     <div class="testbox">
+
       <form action="/">
+      
         <div class="banner">
-          <h1>Longest Word</h1>
+          <h1>Find the Longest Word</h1>
         </div>
         <div class="item">
-          <p>Gamers names</p>
-          
+ 
           
           <div class="item">
             <label for="name1">First gamer</label>
@@ -156,7 +176,7 @@
           </div>
           <div class="item"> 
             <label for="name2">Second gamer</label>
-            <input type="text" name="name" placeholder="Computer" value="Computer"/>
+            <input type="text" name="name2" placeholder="Computer" value="Computer"/>
           </div>
           
         </div>
@@ -166,83 +186,44 @@
         <div class="contact-item">
           <div class="item">
             <p>Enter the number of vowels</p>
-            <input type="text" name="name"/>
+            <input type="number" name="name3"/>
           </div>
           </div>
           <div class="btn-block">
-          <?php
-          include('functions.php');
-          $dl = drawnLetters();
-          for ($i=0; $i <= 3; $i++) {?>
           
+          <?php
+          include_once('functions.php');
+          //include_once('game.php');
+          $dl = drawnLetters();
+          //$dl = ['z','e','d','a'];
+          for ($i=0; $i <= 3; $i++) {?>
+       
              <div class="divaya" style="display:none ; width: 60px; height: 60px; padding: 3px; background-color: lightblue; font-size: 64px; font-weight:bold; text-align:center; "> <?php echo($dl[$i])?> </div> 
           <?php
           }
+               // findTheLongestWord($dl);  
           ?>
-         <?php 
-       
-         for ($i=3; $i > 1 ; $i--) {
-                echo(nbrcomb($dl,$i));
-              
-              //$allcomb =
-              //$sugg = permute( $dl , 0 , count($dl) - 1 ,$i) <> '';
-              if (permute( $dl , 0 , count($dl) - 1 ,$i) <> ''){
-                  echo (permute( $dl , 0 , count($dl) - 1 ,$i). "    is the longest word");
-               }else{
-                       if ($i = 1) {
-                         echo('There is not longest word');
-              //                $i = 1;
-                       }else{
-                         echo (permute( $dl , 0 , count($dl) - 1 ,$i). "    is the longest word");
-                          $i = 1;
-                       }
-                      
-                }                 
-                   
-         }
-
-  
-
-
-
-
-           ?>          
-
-          <a id = 'buttonShow' onclick="show()"> THE RANDOMLY DRAWN LETTERS</a>
-         
+          <a  id = 'buttonShow' onclick="show()"> THE RANDOMLY DRAWN LETTERS</a>
         </div>  
-       
-        
         <div class="btn-block">
-          <button type="submit" href="/">Find the longest word</button>
+          <?php $tempor = implode('*', $dl); ?>
+          <a href="game.php?dl=<?php echo($tempor);?> " >Find the longest word</a>
         </div>
       </form>
     </div>
+
 <!-- ************************************************************** -->
 
-
-
-
-
-
 <script>
-
-
-
 function show(){
   const list = document.querySelectorAll(".divaya");
   const button_show = document.querySelector("#buttonShow");
   const button_start = document.querySelector("#buttonStart");
-
-
-   
    for(let i = 0 ; i < 4; i++){
     list[i].style.display='inline-block';     
-
   }
   button_show.style.display='none'; 
   button_start.innerHTML='PLAY AGAIN'; 
-
 }
 </script>
 
