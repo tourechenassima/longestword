@@ -194,9 +194,9 @@
           <?php
           include_once('functions.php');
           //include_once('game.php');
-          $dl = drawnLetters();
-          //$dl = ['z','e','d','a'];
-          for ($i=0; $i <= 3; $i++) {?>
+          //$dl = drawnLetters();
+          $dl = ['z','t','e','c','k'];
+          for ($i=0; $i <= 4; $i++) {?>
        
              <div class="divaya" style="display:none ; width: 60px; height: 60px; padding: 3px; background-color: lightblue; font-size: 64px; font-weight:bold; text-align:center; "> <?php echo($dl[$i])?> </div> 
           <?php
@@ -219,7 +219,7 @@ function show(){
   const list = document.querySelectorAll(".divaya");
   const button_show = document.querySelector("#buttonShow");
   const button_start = document.querySelector("#buttonStart");
-   for(let i = 0 ; i < 4; i++){
+   for(let i = 0 ; i < 5; i++){
     list[i].style.display='inline-block';     
   }
   button_show.style.display='none'; 

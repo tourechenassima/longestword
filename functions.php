@@ -1,7 +1,7 @@
 <?php
  function drawnLetters(){
 $drawn_letters = [];
-for ($i=0; $i <= 3; $i++) { 
+for ($i=0; $i <= 4; $i++) { 
     $drawn_letters[$i] = random_letter();?>
     
 <?php    
@@ -28,50 +28,8 @@ function permute($array, $left, $right, $r) {
     if ($left == $r) {
       //  echo implode(", ", array_slice($array, 0, $r)) . PHP_EOL;
       $slice = array_slice($array, 0, $r);
-      if ($r === 10) {
-        $x =$slice[0].$slice[1].$slice[2].$slice[3].$slice[4].$slice[5].$slice[6].$slice[7].$slice[8].$slice[9] ;
-      } else {
-        if ($r === 9) {
-            $x =$slice[0].$slice[1].$slice[2].$slice[3].$slice[4].$slice[5].$slice[6].$slice[7].$slice[8];
-        }else {
-        if ($r === 8) {
-            $x =$slice[0].$slice[1].$slice[2].$slice[3].$slice[4].$slice[5].$slice[6].$slice[7];
-
-        } else {
-            if ($r === 7) {
-                $x =$slice[0].$slice[1].$slice[2].$slice[3].$slice[4].$slice[5].$slice[6];
-
-            } else {
-                if ($r === 6) {
-                    $x =$slice[0].$slice[1].$slice[2].$slice[3].$slice[4].$slice[5];
-                } else {
-                    if ($r === 5) {
-                        $x =$slice[0].$slice[1].$slice[2].$slice[3].$slice[4];
-                    } else {
-                        if ($r === 4) {
-                            $x =$slice[0].$slice[1].$slice[2].$slice[3];
-                        } else {
-                            if ($r === 3) {
-                                $x =$slice[0].$slice[1].$slice[2];
-                            } else {
-                                if ($r === 2) {
-                                    $x =$slice[0].$slice[1];
-                                } else {
-                                    echo('else...');
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-
-         
-       }
-      }
-      
-       
+      $x = implode("", $slice);
+          
      //if (chercher($x) <>'') {
         return(chercher($x,$r));
     // }
@@ -161,6 +119,7 @@ function nbrcomb($letters,$r){
 
 function loadDictionary($filePath) {
     $dictionary = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+   
     return $dictionary;
 }
 
@@ -172,8 +131,10 @@ function loadDictionary($filePath) {
 
 function createNLetterDictionary($dictionary, $n) {
     $nLetterWords = array_filter($dictionary, function($word) use ($n) {
+        
         return strlen($word) == $n;
     });
+    
     return $nLetterWords;
 }
 
