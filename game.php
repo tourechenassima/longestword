@@ -2,42 +2,27 @@
           include('functions.php');
           $tempor1 = $_GET['dl'];
           $dl = explode('*', $tempor1); 
-          for ($i=4; $i > 1 ; $i--) {
+        
+
+          //************************* */
+          $dictionaryFilePath = 'Dictionary in txt\A.txt';
+
+        //  $fileContent = file_get_contents($dictionaryFilePath);
+          // Convertir le texte en minuscules
+       //   $fileContentLowerCase = strtolower($fileContent);
+          // Réécrire le fichier avec le nouveau texte en minuscules
+       //   file_put_contents($dictionaryFilePath, $fileContentLowerCase);
+
+          $dictionary = loadDictionary($dictionaryFilePath);
+
+          //   $n = 3; // Change this to your desired word length          
+          //********************************************* */
                // echo(nbrcomb($dl,$i));              
                 //$sugg = permute( $dl , 0 , count($dl) - 1 ,$i) <> '';
-              if (permute( $dl , 0 , count($dl) -1 ,$i) <> ''){
-                ?>
-                          <h1 style ="color:red;">
-                            <?php
-                  echo (permute( $dl , 0 , count($dl) - 1 ,$i)."  is the longest word");
-                  ?>
-
-                          </h1>
-                          <?php
+                for ($i=4 ; $i > 1 ; $i--) {
+                 if (dic($dictionary, $i+1,$dl)<> ''){
                   $i = 1;
-               } else{
-                        if ($i = 2) {
-
-                          if (permute( $dl , 0 , count($dl) - 1 ,$i) <> ''){?>
-                          <h1 style ="color:green;">
-                            <?php echo (permute( $dl , 0 , count($dl) - 1 ,$i)."  is the longest word");?>
-
-                          </h1>
-                          <?php
-                         } else{
-                                  if ($i = 2) {?>
-                                    <h1 style ="color:red;">
-                                      <?php
-                                     echo('There is not longest word');?>
-
-                                     </h1>
-                                     <?php
-                                    //   $i = 1;
-                                  }
-                         }  
-
-
-                           
-                        }
-               }                        
-         }
+                 };
+                                  
+                }
+         ?>

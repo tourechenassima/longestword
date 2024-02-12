@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-
-
+    <title>Find the longest word</title>
     <!-- ******************************************** -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -14,7 +11,7 @@
       html, body {
       min-height: 100%;
       }
-      body, div, form, textarea, p { 
+      body, div, form { 
       padding: 0;
       margin: 0;
       outline: none;
@@ -29,22 +26,19 @@
       margin-bottom: 3px;
       margin-right: 30px;
       margin-left: 30px;
-
       outline: none;
       font-family: Roboto, Arial, sans-serif;
       font-size: 32px;
-     
       color: #000;
       line-height: 22px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      width: calc(100% - 600px);
+      padding: 5px;
+      width: calc(50% - 20px);
       }
-      h1 {
-      position: absolute;
-      margin: 0;
-      font-size: 64px;
-      color: blue;
       
-      z-index: 2;
-      }
       .testbox {
       display: flex;
       justify-content: center;
@@ -60,36 +54,7 @@
       background: #fff;
       box-shadow: 0 0 10px 0 blue; 
       }
-      .banner {
-      position: relative;
-      height: 210px;
-      background-image: url("./images/letters1.jpg");      background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      margin-bottom: 40px;
-      }
-      .banner::after {
-      content: "";
-      //background-color: rgba(0, 0, 0, 0.4); 
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      }
-      input, textarea {
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      }
-      input {
-      width: calc(100% - 600px);
-      padding: 5px;
-      }
-      textarea {
-      width: calc(100% - 600px);
-      padding: 5px;
-      }
+     
       .item:hover p, input:hover::placeholder {
       color: #cc0052;
       }
@@ -120,20 +85,16 @@
       background: #ff0066;
       }
       @media (min-width: 568px) {
-      .name-item, .contact-item {
+      .contact-item {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      width: calc(100% - 12px);
       }
       .contact-item .item {
       width: calc(50% - 8px);
       }
-      .name-item input {
-      width: calc(50% - 20px);
-      }
-      .contact-item input {
-      width: calc(100% - 12px);
-      }
+           
       a{
         width: 150px;
       padding: 10px;
@@ -145,41 +106,16 @@
       cursor: pointer;
       text-decoration: none;
       }
-      label{
-        padding: 3px;
-        font-size: 32px;
-
-      }
-      ul{
-        list-style: none;
-      }
+      
+     
       
     </style>
     <!-- ***************************************************** -->
 </head>
 <body>
 <!-- ******************************************************** -->
-
     <div class="testbox">
-
       <form action="/">
-      
-        <div class="banner">
-          <h1>Find the Longest Word</h1>
-        </div>
-        <div class="item">
- 
-          
-          <div class="item">
-            <label for="name1">First gamer</label>
-            <input type="text" name="name1" placeholder="write your name"  />
-          </div>
-          <div class="item"> 
-            <label for="name2">Second gamer</label>
-            <input type="text" name="name2" placeholder="Computer" value="Computer"/>
-          </div>
-          
-        </div>
         <div class="btn-block">
           <a id = 'buttonStart' href="index.php">Start the game</a>
         </div>
@@ -188,44 +124,39 @@
             <p>Enter the number of vowels</p>
             <input type="number" name="name3"/>
           </div>
-          </div>
-          <div class="btn-block">
-          
-          <?php
+        </div>
+        <div class="btn-block">
+      <?php
           include_once('functions.php');
           //include_once('game.php');
-          //$dl = drawnLetters();
-          $dl = ['z','t','e','c','k'];
-          for ($i=0; $i <= 4; $i++) {?>
+           $dl = drawnLetters();
+          //$dl = ['z','t','e','c'];
+          for ($i=0; $i <= 4; $i++) {
+      ?>
        
-             <div class="divaya" style="display:none ; width: 60px; height: 60px; padding: 3px; background-color: lightblue; font-size: 64px; font-weight:bold; text-align:center; "> <?php echo($dl[$i])?> </div> 
-          <?php
-          }
-               // findTheLongestWord($dl);  
-          ?>
-          <a  id = 'buttonShow' onclick="show()"> THE RANDOMLY DRAWN LETTERS</a>
+        <div class="divaya" style="display:none ; width: 60px; height: 60px; padding: 3px; background-color: lightblue; font-size: 64px; font-weight:bold; text-align:center; "> 
+           <?php echo($dl[$i])?> 
+        </div> 
+          <?php } ?>
+        <a  id = 'buttonShow' onclick="show()"> THE RANDOMLY DRAWN LETTERS</a>
         </div>  
         <div class="btn-block">
-          <?php $tempor = implode('*', $dl); ?>
-          <a href="game.php?dl=<?php echo($tempor);?> " >Find the longest word</a>
+        <?php $tempor = implode('*', $dl); ?>
+        <a href="game.php?dl=<?php echo($tempor);?> " >Find the longest word</a>
         </div>
       </form>
     </div>
-
-<!-- ************************************************************** -->
-
 <script>
-function show(){
-  const list = document.querySelectorAll(".divaya");
-  const button_show = document.querySelector("#buttonShow");
-  const button_start = document.querySelector("#buttonStart");
-   for(let i = 0 ; i < 5; i++){
-    list[i].style.display='inline-block';     
+  function show(){
+    const list = document.querySelectorAll(".divaya");
+    const button_show = document.querySelector("#buttonShow");
+    const button_start = document.querySelector("#buttonStart");
+      for(let i = 0 ; i < 5; i++){
+        list[i].style.display='inline-block';     
+      }
+    button_show.style.display='none'; 
+    button_start.innerHTML='PLAY AGAIN'; 
   }
-  button_show.style.display='none'; 
-  button_start.innerHTML='PLAY AGAIN'; 
-}
 </script>
-
 </body>
 </html>
