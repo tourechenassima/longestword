@@ -1,42 +1,26 @@
 <?php
  function drawnLetters(){
 $drawn_letters = [];
-for ($i=0; $i <= 4; $i++) { 
-    $drawn_letters[$i] = random_letter();?>
-    
-<?php    
-
+for ($i=0; $i <= 7 ; $i++) { 
+    $drawn_letters[$i] = random_letter();    
  }
      return ($drawn_letters);
-    
-}
-
+ }
 
 function random_letter(){
     $alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
     $random_index = rand(0,count($alphabet)-1);
     return ($alphabet[$random_index]);
 }
-?>
 
-
-
-
-<?php
 function permute($array, $left, $right, $r,$customTree) {
     
     if ($left == $r) {
       //  echo implode(", ", array_slice($array, 0, $r)) . PHP_EOL;
       $slice = array_slice($array, 0, $r);
       $x = implode("", $slice);
-          
-     //if (chercher($x) <>'') {
         return(chercher($x,$r,$customTree));
-    // }
-  
-    ?>
-     
-     <?php
+   
     } else {
         for ($i = $left; $i <= $right; $i++) {
             // Échanger les éléments $array[$left] et $array[$i]
@@ -47,9 +31,7 @@ function permute($array, $left, $right, $r,$customTree) {
             
              if (permute($array, $left + 1, $right, $r,$customTree) <>'') {
                  return (permute($array, $left + 1, $right, $r,$customTree));
-                
                  //echo (permute($array, $left + 1, $right, $r)."  is the longest word");
-
              }else{
                  permute($array, $left + 1, $right, $r,$customTree);
              }
@@ -67,26 +49,20 @@ function chercher($xi,$n,$customTree){
     
     $searchWord = $xi; // Change this to the word you want to search
     $searchWord = strtolower($searchWord);
-
-
-   
  //include_once('tree.php');
 
 // Exemple d'utilisation : Recherche du mot "example" dans l'arbre
 
 if (searchWordInTree($customTree, $searchWord)) {
-    //echo "Le mot '$searchWord' a été trouvé dans l'arbre.\n";
     return($searchWord);
-    ?> //<br> <?php
 } else {
-   // echo "Le mot '$searchWord' n'a pas été trouvé dans l'arbre.\n";
+    unset($$searchWord);
    return('');
-    ?> //<br> <?php
 }
     
 }
 
- function factorial($n) {
+function factorial($n) {
      if ($n <= 1) {
          return 1;
      } else {
@@ -94,7 +70,7 @@ if (searchWordInTree($customTree, $searchWord)) {
      }
  }
 
-  function nPr($n, $r) {
+function nPr($n, $r) {
      if ($n < $r) {
          return 0; // Impossible de calculer les permutations
      }
@@ -102,49 +78,35 @@ if (searchWordInTree($customTree, $searchWord)) {
  }
 
 function nbrcomb($letters,$r){
-//$letters = $dl;
-//$r = 3;
-
 
  $result = nPr(count($letters), $r);
  return  ($result);
-//permute($letters, 0, count($letters) - 1, $r);
 }
 
 function loadDictionary($filePath) {
     $dictionary = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-   
     return $dictionary;
 }
 
-
-
- function searchWord($word, $dictionary) {
-     return in_array($word, $dictionary);
- }
- 
-function createNLetterDictionary($dictionary, $n) {
-    var_dump($n);
-
-    $nLetterWords = array_filter($dictionary, function($word) use ($n) {
-        
-        return strlen($word) == $n;
-    });
- 
-    return $nLetterWords;
-
-}
-
+//  function searchWord($word, $dictionary) {
+//      return in_array($word, $dictionary);
+//  }
+// function createNLetterDictionary($dictionary, $n) {
+//     var_dump($n);
+//     $nLetterWords = array_filter($dictionary, function($word) use ($n) {
+//        return strlen($word) == $n;
+//     });
+//     return $nLetterWords;
+// }
 function dic($dictionary, $j,$dl){
-    $nLetterDictionary = createNLetterDictionary($dictionary, $j);
-    $nLetterDictionary = array_values($nLetterDictionary);
-
-  //  include_once('tree.php');
-    $trie = buildTree($nLetterDictionary);
-            // Afficher l'arbre avec DFS, indentation et niveau de chaque nœud
+    // $nLetterDictionary = createNLetterDictionary($dictionary, $j);
+    // $nLetterDictionary = array_values($nLetterDictionary);
+    // include_once('tree.php');
+    // $trie = buildTree($nLetterDictionary);
+    $trie = buildTree($dictionary, $j);
+           // Afficher l'arbre avec DFS, indentation et niveau de chaque nœud
            // echo "Arbre de l'arborescence:\n";
            // printTreeDFS($trie);
-
               if (permute( $dl , 0 , count($dl) -1 , $j,$trie) <> ''){
                 ?>
                           <h1 style ="color:green;">
@@ -154,27 +116,13 @@ function dic($dictionary, $j,$dl){
                           </h1>
                           <?php
                           return(permute( $dl , 0 , count($dl) - 1 , $j,$trie));
-                 // $j = 1;
                } else{
-                        // if ($i = 2) {
-
-                        //   if (permute( $dl , 0 , count($dl) - 1 , $j,$trie) <> ''){?>
-                        <!-- //   <h1 style ="color:green;"> -->
-                        //     <?php //echo (permute( $dl , 0 , count($dl) - 1 , $j,$trie)."  is the longest word");?>
-
-                        <!-- //   </h1> -->
-                        //   <?php
-                        //  } else{
-                        //           if ($i = 2) {
                             ?>
                                     <h1 style ="color:red;">
                                       <?php
-                                      
                                      echo("There is not longest word in ".$j." letters words.");?>
-
                                      </h1>
                                      <?php
-                                    //   $i = 1;
                                   }
                          }  
                         
@@ -189,11 +137,14 @@ class TreeNode {
 }
 
 // Fonction récursive pour construire l'arbre
-function buildTree($words) {
+function buildTree($words, $j) {
     $root = new TreeNode($words[0]);
 
     foreach ($words as $word) {
+    if (strlen($word)=== $j) {
         insertWord($root, $word);
+    }
+        
     }
 
     return $root;
@@ -205,16 +156,10 @@ function insertWord($node, $word) {
     $commonChars = 0;
     $minLen = min(strlen($node->word), strlen($word));
     for ($i = 0; $i < $minLen ; $i++) {
-        
-                    
+                           
             if ($node->word[$i] === $word[$i] ) {
                 $commonChars++;
-            } 
-         
-        // if ($commonChars =3) { 
-
-        //     break;
-        // }
+            }               
     }
 
     // Si le nœud actuel n'a pas d'enfant correspondant, créer un nouveau nœud
@@ -228,16 +173,16 @@ function insertWord($node, $word) {
 }
 
 // Fonction pour afficher l'arbre de manière lisible
-function printTree($node, $indent = 0) {
-    if ($node == null) {
-        return;
-    }
+// function printTree($node, $indent = 0) {
+//     if ($node == null) {
+//         return;
+//     }
 
-    echo str_repeat("  ", $indent) . $node->word . "\n";
-    foreach ($node->children as $child) {
-        printTree($child, $indent + 1);
-    }
-}
+//     echo str_repeat("  ", $indent) . $node->word . "\n";
+//     foreach ($node->children as $child) {
+//         printTree($child, $indent + 1);
+//     }
+// }
 
 // Charger les mots du fichier texte dans un tableau
 //$words = file('Dictionary in txt\B.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -246,45 +191,77 @@ function printTree($node, $indent = 0) {
 //$tree = buildTree($words);
 
 // Fonction pour afficher l'arbre de manière lisible avec DFS, indentation et niveau de chaque nœud
-function printTreeDFS($node, $level = 0) {
-    if ($node == null) {
-        return;
-    }
+//  function printTreeDFS($node, $level = 0) {
+//      if ($node == null) {
+//          return;
+//      }
 
-    // Afficher le niveau et le mot du nœud avec l'indentation correspondante
-    echo str_repeat("  ", $level) . "Level $level: " . $node->word . "\n";
+//      // Afficher le niveau et le mot du nœud avec l'indentation correspondante
+//      echo str_repeat("  ", $level) . "Level $level: " . $node->word . "\n";
 
-    // Parcourir les enfants du nœud et les afficher récursivement
-    foreach ($node->children as $child) {
-        printTreeDFS($child, $level + 1);
-    }
-}
-
-
+//      // Parcourir les enfants du nœud et les afficher récursivement
+//      foreach ($node->children as $child) {
+//          printTreeDFS($child, $level + 1);
+//      }
+//  }
 
  // Fonction de recherche d'un mot dans l'arbre
+// function searchWordInTree($node, $searchWord) {
+//     if ($node == null) {
+//         return false;
+//     }
+
+//     // Vérifie si le mot correspond à celui du nœud actuel
+//     if ($node->word === $searchWord) {
+//         return true;
+//     }
+
+//     // Parcourt les enfants du nœud et effectue une recherche récursive
+//     foreach ($node->children as $child) {
+//         if (searchWordInTree($child, $searchWord)) {
+//             return true;
+//         }
+//     }
+//     // Si le mot n'est pas trouvé dans cet arbre
+//     return false;
+// }
+// Fonction pour rechercher un mot dans l'arbre
 function searchWordInTree($node, $searchWord) {
-    if ($node == null) {
-        return false;
-    }
 
-    // Vérifie si le mot correspond à celui du nœud actuel
-    if ($node->word === $searchWord) {
-        return true;
-    }
-
-    // Parcourt les enfants du nœud et effectue une recherche récursive
-    foreach ($node->children as $child) {
-        if (searchWordInTree($child, $searchWord)) {
+    $length = strlen($searchWord);
+    $currentNode = $node;
+    // Parcourir l'arbre trie jusqu'à trouver le nœud correspondant au mot recherché
+    while ($currentNode != null) {
+        $word = $currentNode->word;
+        $commonChars = 0;
+        $minLen = min(strlen($word), $length);
+        // Trouver le nombre de caractères communs entre le mot du nœud actuel et le mot recherché
+        for ($i = 0; $i <$minLen; $i++) {
+            if ($word[$i] === $searchWord[$i]) {
+                $commonChars++;
+            } 
+        }
+        // Si le nombre de caractères communs est égal à la longueur du mot recherché,
+        // alors le mot a été trouvé dans l'arbre
+        if ($commonChars === $length) {
             return true;
         }
-    }
-
-    // Si le mot n'est pas trouvé dans cet arbre
-    return false;
+        // Si le nombre de caractères communs est inférieur à la longueur du mot recherché,
+        // continuer la recherche dans les enfants du nœud actuel
+        if ($commonChars < $length) {
+            if (isset($currentNode->children[$commonChars])) {
+                 for ($i=0; $i < $length && $i != $commonChars; $i++) { 
+                    //echo('nassima   ');
+                     unset($currentNode->children[$i]);
+                 }
+                 $currentNode = $currentNode->children[$commonChars];
+            } else {
+                // Le préfixe commun est trouvé mais il n'y a pas de correspondance complète, donc le mot n'existe pas
+                return false;
+            }
+        } 
+   }
+    unset($node->root);
 }
-
-
-
 
 ?>
