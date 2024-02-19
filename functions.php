@@ -14,12 +14,15 @@ function random_letter(){
 }
 
 function permute($array, $left, $right, $r,$customTree) {
-    
+    $arrayilem = [];
     if ($left == $r) {
+
       //  echo implode(", ", array_slice($array, 0, $r)) . PHP_EOL;
       $slice = array_slice($array, 0, $r);
       $x = implode("", $slice);
-        return(chercher($x,$r,$customTree));
+      //array_push($vide, $x);
+      //var_dump ($vide);
+      return(chercher($x,$r,$customTree));
    
     } else {
         for ($i = $left; $i <= $right; $i++) {
@@ -56,7 +59,7 @@ function chercher($xi,$n,$customTree){
 if (searchWordInTree($customTree, $searchWord)) {
     return($searchWord);
 } else {
-    unset($$searchWord);
+    unset($searchWord);
    return('');
 }
     
@@ -72,7 +75,7 @@ function factorial($n) {
 
 function nPr($n, $r) {
      if ($n < $r) {
-         return 0; // Impossible de calculer les permutations
+         return 0; 
      }
      return factorial($n) / factorial($n - $r);
  }
@@ -83,47 +86,44 @@ function nbrcomb($letters,$r){
  return  ($result);
 }
 
-function loadDictionary($filePath) {
-    $dictionary = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    return $dictionary;
-}
+ function loadDictionary($filePath) {
+     $dictionary = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+     return $dictionary;
+ }
 
-//  function searchWord($word, $dictionary) {
-//      return in_array($word, $dictionary);
-//  }
-// function createNLetterDictionary($dictionary, $n) {
-//     var_dump($n);
-//     $nLetterWords = array_filter($dictionary, function($word) use ($n) {
-//        return strlen($word) == $n;
-//     });
-//     return $nLetterWords;
-// }
-function dic($dictionary, $j,$dl){
-    // $nLetterDictionary = createNLetterDictionary($dictionary, $j);
-    // $nLetterDictionary = array_values($nLetterDictionary);
-    // include_once('tree.php');
-    // $trie = buildTree($nLetterDictionary);
-    $trie = buildTree($dictionary, $j);
-           // Afficher l'arbre avec DFS, indentation et niveau de chaque nœud
-           // echo "Arbre de l'arborescence:\n";
-           // printTreeDFS($trie);
-              if (permute( $dl , 0 , count($dl) -1 , $j,$trie) <> ''){
-                ?>
-                          <h1 style ="color:green;">
-                            <?php
-                  echo (permute( $dl , 0 , count($dl) - 1 , $j,$trie)."  is the longest word in ".$j." letters words.");
-                  ?>
-                          </h1>
-                          <?php
-                          return(permute( $dl , 0 , count($dl) - 1 , $j,$trie));
-               } else{
-                            ?>
-                                    <h1 style ="color:red;">
-                                      <?php
-                                     echo("There is not longest word in ".$j." letters words.");?>
-                                     </h1>
-                                     <?php
-                                  }
+function dic($dl){
+
+    $dictionaryFilePath = 'Dictionary in txt\A.txt';
+    $dictionary = loadDictionary($dictionaryFilePath);
+    
+          for ($i=7 ; $i > 1 ; $i--) {
+              $trie = buildTree( $dictionary, $i );
+            // Afficher l'arbre avec DFS, indentation et niveau de chaque nœud
+            // echo "Arbre de l'arborescence:\n";
+            // printTreeDFS($trie);
+               if ( permute( $dl , 0 , count($dl) -1 , $i, $trie ) <> ''){
+                 
+                 ?>  <h1 style ="color:green;">  <?php
+                   echo (permute( $dl , 0 , count($dl) - 1 , $i,$trie)."  is the longest word in ".$i." letters words.");
+                   $i = 1;
+                   unset($dictionary);
+
+                   unset($trie);
+                 ?>  </h1>                       <?php
+                  // return(permute( $dl , 0 , count($dl) - 1 , $j,$trie));
+                 } else {
+                 ?>  <h1 style ="color:red;">    <?php
+                  // echo("There is not longest word in ".$j." letters words.");
+                 ?>  </h1>                       <?php
+                         }
+     
+                            
+          }
+          unset($dictionary);
+
+          unset($trie);
+
+ 
                          }  
                         
 // Classe pour représenter un nœud de l'arbre
@@ -262,6 +262,9 @@ function searchWordInTree($node, $searchWord) {
         } 
    }
     unset($node->root);
+    unset($node);
+
+                   
 }
 
 ?>
